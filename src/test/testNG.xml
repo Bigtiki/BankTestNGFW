@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="SmokeTest">
+    <listeners>
+        <listener class-name="listenerTestNG.ListenerTestNG"/>
+    </listeners>
+    <test thread-count="5" parallel="false" name="Bank Tests">
+        <classes>
+            <class name="org.example.smokeTest">
+                <methods>
+                    <include name="gotoBankHome" />
+                    <include name="loginBankProfile" />
+                    <include name="addNewCustomer" />
+                </methods>
+            </class>
+        </classes>
+    </test> <!-- Test -->
+</suite> <!-- SuiteTest1 -->
