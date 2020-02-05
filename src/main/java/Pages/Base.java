@@ -1,10 +1,9 @@
 package Pages;
 
-import Utility.ReadProperties;
 import Utility.SharedConfig;
-import com.sun.javafx.runtime.SystemProperties;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -13,7 +12,6 @@ import org.testng.annotations.BeforeTest;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Map;
 
 public class Base {
     static WebDriver driver;
@@ -49,13 +47,23 @@ public class Base {
                 System.out.println(os);
 
                 if(os.contains("mac")) {
-                    System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir")+"//chromedriver");
+                    if(SharedConfig.config.get("browser").trim().toLowerCase().equals("chrome")){
+                    System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir")+"//Drivers//chromedriver");
                     driver = new ChromeDriver();
+                    }else if(SharedConfig.config.get("browser").trim().toLowerCase().equals("firefox")){
+                        System.setProperty("webdriver.firefox.driver",System.getProperty("user.dir")+"//Drivers//geckodriver");
+                        driver = new FirefoxDriver();
+                    }
                 }else if(os.contains("windows")) {
-                    System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir")+"\\Drivers\\chromedriver.exe");
-                    driver = new ChromeDriver();
-
+                    if(SharedConfig.config.get("browser").trim().toLowerCase().equals("chrome")){
+                        System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir")+"\\Drivers\\chromedriver.exe");
+                        driver = new ChromeDriver();
+                    }else if(SharedConfig.config.get("browser").trim().toLowerCase().equals("firefox")){
+                        System.setProperty("webdriver.firefox.driver",System.getProperty("user.dir")+"\\Drivers\\geckodriver.exe");
+                        driver = new FirefoxDriver();
+                    }
                 }
+
             }
         }
         return driver;
